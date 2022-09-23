@@ -28,16 +28,30 @@ Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class)
     ->middleware('auth')
     ->name('tweet.index');
 
-// 投稿するルートの定義
-Route::post('tweet/create', \App\Http\Controllers\Tweet\CreateController::class)
-    ->middleware('auth')
-    ->name('tweet.create');
 
-// postテーブルから1つの投稿を取得し表示する
-Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\IndexController::class)->name('tweet.update.index')->where('tweetId', '[0-9]+');
+// 操作に権限が必要
+Route::middleware('auth')->group(function () {
+    // 投稿するルートの定義
+    Route::post('tweet/create', \App\Http\Controllers\Tweet\CreateController::class)->name('tweet.create');
 
-// 投稿を編集する
-Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)->name('tweet.update.put')->where('tweetId', '[0-9]+');
+    // postテーブルから1つの投稿を取得し表示する
+    Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\IndexController::class)->name('tweet.update.index')->where('tweetId', '[0-9]+');
 
-// 投稿を削除する
-Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->name('tweet.delete');
+    // 投稿を編集する
+    Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)->name('tweet.update.put')->where('tweetId', '[0-9]+');
+
+    // 投稿を削除する
+    Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->name('tweet.delete');
+
+});
+// // 投稿するルートの定義
+// Route::post('tweet/create', \App\Http\Controllers\Tweet\CreateController::class)->name('tweet.create');
+
+// // postテーブルから1つの投稿を取得し表示する
+// Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\IndexController::class)->name('tweet.update.index')->where('tweetId', '[0-9]+');
+
+// // 投稿を編集する
+// Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)->name('tweet.update.put')->where('tweetId', '[0-9]+');
+
+// // 投稿を削除する
+// Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->name('tweet.delete');

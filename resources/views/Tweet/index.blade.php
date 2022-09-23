@@ -22,11 +22,6 @@
             @csrf
             <label>今どうしてる？</label>
             <span>140字まで</span>
-            <label>名前：<input type="text" name="name"></label>
-            @error('name')
-                <p style="color: red">{{ $message }}</p>
-            @enderror
-            <br>
             <textarea name="tweet" id="tweet-content" placeholder="今、どうしてる？？" cols="100" rows="5"></textarea>
 
             {{-- バリーデーションの表示 --}}
@@ -44,18 +39,22 @@
         @foreach ($tweets as $tweet)
             <details>
                 <summary>
-                    <p>{{ $tweet->name }}</p>
+                    <p>{{ $tweet->user->name }}</p>
                     <p>{{ $tweet->content }} 投稿時間{{ $tweet->created_at }}</p>
                 </summary>
 
                 <div>
-                    <a href="{{ route('tweet.update.index', ['tweetId' => $tweet->id]) }}">編集</a>
+                    @if (\Illuminate\Support\Facades\Auth::id() === $tweet->user_id)
+                        <a href="{{ route('tweet.update.index', ['tweetId' => $tweet->id]) }}">編集</a>
 
-                    <form action="{{ route('tweet.delete', ['tweetId' => $tweet->id]) }}" method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit">削除</button>
-                    </form>
+                        <form action="{{ route('tweet.delete', ['tweetId' => $tweet->id]) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit">削除</button>
+                        </form>
+                    @else
+                        {{-- ログイン当人でないと権限がない 編集、削除を表示しない --}}
+                    @endif
                 </div>
             </details>
             <hr>

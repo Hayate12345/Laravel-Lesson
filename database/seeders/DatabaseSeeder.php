@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // 作成したシーダーを呼ぶ
-         $this->call([TweetsSeeder::class]);
+         $this->call([
+            Usersseeder::class,
+            TweetsSeeder::class
+        ]);
     }
 }

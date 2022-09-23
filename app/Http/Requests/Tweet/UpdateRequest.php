@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
         // 値のバリデーションを行う　今回は必須項目、140文字の制限を設ける
         return [
             'tweet' => 'required|max:140',
-            'name' => 'required'
+            // 'name' => 'required'
         ];
     }
 
@@ -37,9 +37,9 @@ class UpdateRequest extends FormRequest
         return $this->input('tweet');
     }
 
-    public function test(): string{
-        return $this->input('name');
-    }
+    // public function test(): string{
+    //     return $this->input('name');
+    // }
 
     // urlの番号を取得する
     public function id(): int{

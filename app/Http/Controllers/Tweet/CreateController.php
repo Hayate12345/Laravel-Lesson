@@ -24,10 +24,13 @@ class CreateController extends Controller
         // 新規投稿をする
         $tweet = new Tweet;
 
+        // userIdの指定
+        $tweet->user_id = $request->userId();
+
         // カラムcontentに入力する値の指定　CreateRequestで定義したtweet()の呼び出す
         $tweet->content = $request->tweet();
 
-        $tweet->name = $request->test();
+        // $tweet->name = $request->test();
 
         // 投稿を保存する
         $tweet->save();

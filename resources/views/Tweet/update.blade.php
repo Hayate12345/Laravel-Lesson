@@ -23,10 +23,6 @@
             @csrf
             <label>今どうしてる？</label>
             <span>140字まで</span>
-            <label>名前：<input type="text" name="name" value="{{ $tweet->name }}"></label>
-            @error('name')
-                <p style="color: red">{{ $message }}</p>
-            @enderror
             <br>
             <textarea name="tweet" id="tweet-content" placeholder="今、どうしてる？？" cols="100" rows="5">{{ $tweet->content }}</textarea>
 

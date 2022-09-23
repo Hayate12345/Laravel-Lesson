@@ -28,8 +28,8 @@ class CreateRequest extends FormRequest
     {
         // 値のバリデーションを行う　今回は必須項目、140文字の制限を設ける
         return [
-            'tweet' => 'required|max:140',
-            'name' => 'required'
+            'tweet' => 'required|max:140'
+            // 'name' => 'required'
         ];
     }
 
@@ -40,7 +40,13 @@ class CreateRequest extends FormRequest
         return $this->input('tweet');
     }
 
-    public function test(): string{
-        return $this->input('name');
+    // public function test(): string{
+    //     return $this->input('name');
+    // }
+
+    // Requestクラスのuser関数で今自分がログインしているユーザーが取得できる
+    public function userId(): int
+    {
+        return $this->user()->id;
     }
 }

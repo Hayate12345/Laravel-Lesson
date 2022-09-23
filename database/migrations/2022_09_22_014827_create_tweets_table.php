@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('tweets', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('content');
             $table->timestamps();
         });
