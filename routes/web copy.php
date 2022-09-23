@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tweet;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,21 +18,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// // SampleControllerのshowHelloの起動
+// Route::get('/sample', [\App\Http\Controllers\Sample\IndexController::class, 'showHello']);
 
-require __DIR__.'/auth.php';
+// // SampleControllerのshowIdの起動
+// Route::get('/sample/{id}', [\App\Http\Controllers\Sample\IndexController::class, 'showId']);
 
 // ツイートの一覧を表示する
-Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class)
-    ->middleware('auth')
-    ->name('tweet.index');
+Route::get('/tweet', \App\Http\Controllers\Tweet\IndexController::class)->name('tweet.index');
 
 // 投稿するルートの定義
-Route::post('tweet/create', \App\Http\Controllers\Tweet\CreateController::class)
-    ->middleware('auth')
-    ->name('tweet.create');
+Route::post('tweet/create', \App\Http\Controllers\Tweet\CreateController::class)->name('tweet.create');
 
 // postテーブルから1つの投稿を取得し表示する
 Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\IndexController::class)->name('tweet.update.index')->where('tweetId', '[0-9]+');
