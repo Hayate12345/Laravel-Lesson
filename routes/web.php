@@ -35,3 +35,6 @@ Route::get('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\IndexCo
 
 // 投稿を編集する
 Route::put('/tweet/update/{tweetId}', \App\Http\Controllers\Tweet\Update\PutController::class)->name('tweet.update.put')->where('tweetId', '[0-9]+');
+
+// 投稿を削除する
+Route::delete('/tweet/delete/{tweetId}', \App\Http\Controllers\Tweet\DeleteController::class)->name('tweet.delete');

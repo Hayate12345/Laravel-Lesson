@@ -32,6 +32,7 @@ class IndexController extends Controller
         // 短縮形　自動的にNotFoundにしてくれる
         $tweet = Tweet::where('id', $tweetId)->firstOrFail();
 
-        // dd($tweet);
+        // viewに値を返す
+        return view('tweet.update')->with('tweet', $tweet);
     }
 }

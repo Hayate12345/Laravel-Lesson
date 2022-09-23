@@ -13,6 +13,11 @@
 
     <div>
         <p>投稿フォーム</p>
+
+        @if (session('feedback.success'))
+            <p style="color: green">{{ session('feedback.success') }}</p>
+        @endif
+
         <form action="{{ route('tweet.create') }}" method="POST">
             @csrf
             <label>今どうしてる？</label>
@@ -29,15 +34,31 @@
                 <p style="color: red">{{ $message }}</p>
             @enderror
 
+
+
             <button type="submit">ツイート</button>
         </form>
     </div>
 
     <div>
         @foreach ($tweets as $tweet)
+            <details>
+                <summary>
+                    <p>{{ $tweet->name }}</p>
+                    <p>{{ $tweet->content }} 投稿時間{{ $tweet->created_at }}</p>
+                </summary>
+
+                <div>
+                    <a href="{{ route('tweet.update.index', ['tweetId' => $tweet->id]) }}">編集</a>
+
+                    <form action="{{ route('tweet.delete', ['tweetId' => $tweet->id]) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit">削除</button>
+                    </form>
+                </div>
+            </details>
             <hr>
-            <p>{{ $tweet->name }}</p>
-            <p>{{ $tweet->content }} 投稿時間{{ $tweet->created_at }}</p>
         @endforeach
     </div>
 </body>

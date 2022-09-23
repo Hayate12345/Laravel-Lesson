@@ -40,4 +40,9 @@ class UpdateRequest extends FormRequest
     public function test(): string{
         return $this->input('name');
     }
+
+    // urlの番号を取得する
+    public function id(): int{
+        return (int) $this->route('tweetId');
+    }
 }
